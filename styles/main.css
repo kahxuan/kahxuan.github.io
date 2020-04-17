@@ -92,6 +92,11 @@ hr {
     text-align: center;
 }
 
+.me img {
+    width: 300px;
+    border-radius: 400px;
+}
+
 .name {
     font-size: 80px;
 }
@@ -129,6 +134,11 @@ hr {
     max-width: 670px;
     margin-top: 70px;
     margin-bottom: 70px;
+}
+
+.content i {
+    float: right;
+    opacity: 0.6;
 }
 
 .content-desc {
