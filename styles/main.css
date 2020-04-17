@@ -1,0 +1,175 @@
+html{
+    scroll-behavior :smooth;
+}
+
+body{
+    font-family: sans-serif;
+    /*background: white;*/
+    color: #283044;
+    height: 100%;
+    margin: 0;
+    font-size: 18px;
+}
+
+* {
+   margin: 0px;
+   padding: 0px;
+}
+
+
+hr {
+    width: 89%;
+}
+
+.main {
+
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+}
+
+.footer-content {
+    width: 98%;
+    border-top: solid;
+    border-width: 1px;
+    margin-top: 50px;
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.navigation {
+    display: flex;
+    justify-content: center;
+    background: white;
+    opacity: 0.8;
+}
+
+.navigation ul{
+    width: 98%;
+    padding: 0;
+    padding-bottom: 5px;
+    list-style-type: none;
+    border-bottom: solid;
+    border-width: 1px;
+    position: fixed;
+    background: white;
+}
+
+.navigation li {
+}
+
+.navigation li span {
+    float: left;
+    display: block;
+    color: #283044;
+    padding: 8px 16px;
+    /*text-decoration: none;*/
+}
+
+.navigation li a {
+    float: right;
+    display: block;
+    color: #283044;
+    padding: 8px 16px;
+    text-decoration: none;
+
+}
+
+.navigation:hover {
+    opacity: 1.0;
+}
+
+.navigation li a:hover {
+    color: gray;
+}
+
+.title {
+    padding: 100px;
+    padding-bottom: 40px;
+    text-align: center;
+}
+
+.name {
+    font-size: 80px;
+}
+
+.name span {
+    opacity: 0.6;
+}
+
+.contacts {
+    list-style-type: none;
+    padding-top: 20px;
+}
+
+.contacts li {
+    display: inline;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.contacts li a:hover {
+    opacity: 0.3;
+}
+
+.desc {
+    padding: 20px;
+}
+
+.content {
+    padding: 50px;
+    width: 70%;
+    background: #EBF5EE;
+    max-width: 700px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.content-desc {
+    padding: 0;
+}
+
+.content-subdesc {
+    font-size: 35px;
+    padding: 15px;
+    padding-left: 0px;
+}
+
+.content-details {
+    /*content: "";*/
+    clear: both;
+    display: table;
+    width: auto;
+}
+
+.details-header {
+    width: 20%;
+    float: left;
+    text-align: left;
+    opacity: 0.6;
+    /*color: #8B786D;*/
+}
+
+.details-desc {
+    width: 75%;
+    float: left;
+}
+
+.details-desc ul {
+    list-style-type: none;
+}
+
+.details-desc li {
+    float: right;
+    text-align: right;
+    padding-left: 20px;
+}
+
+
+.center {
+    display: flex;
+    justify-content: center;
+}
