@@ -87,7 +87,7 @@ hr {
 }
 
 .title {
-    padding: 100px;
+    padding-top: 100px;
     padding-bottom: 40px;
     text-align: center;
 }
@@ -98,6 +98,7 @@ hr {
 }
 
 .name {
+    padding-top: 20px;
     font-size: 80px;
 }
 
