@@ -42,6 +42,8 @@ hr {
 
 .navigation {
     display: flex;
+    z-index:100; 
+    position: relative;
     justify-content: center;
     background: white;
     opacity: 0.8;
@@ -66,7 +68,6 @@ hr {
     display: block;
     color: #283044;
     padding: 8px 16px;
-    /*text-decoration: none;*/
 }
 
 .navigation li a {
