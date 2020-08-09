@@ -2,13 +2,13 @@ html{
     scroll-behavior :smooth;
 }
 
+
 body{
     font-family: sans-serif;
     /*background: white;*/
     color: #283044;
     height: 100%;
-    margin: 0;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 * {
@@ -17,12 +17,12 @@ body{
 }
 
 
-hr {
-    width: 89%;
-}
-
 .main {
-
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    min-height: 600px;
 }
 
 .footer {
@@ -31,13 +31,14 @@ hr {
 }
 
 .footer-content {
-    width: 98%;
-    border-top: solid;
+    width: 100%;
+    /*border-top: solid;*/
     border-width: 1px;
     margin-top: 50px;
     text-align: center;
     padding-top: 40px;
     padding-bottom: 40px;
+    box-shadow: 0px -2px 2px -2px rgba(0,0,0,.3);
 }
 
 .navigation {
@@ -46,18 +47,16 @@ hr {
     position: relative;
     justify-content: center;
     background: white;
-    opacity: 0.8;
+    opacity: 0.95;
 }
 
-.navigation ul{
-    width: 98%;
-    padding: 0;
-    padding-bottom: 5px;
+.navigation ul {
+    padding-right: 10px;
+    width: 100%;
     list-style-type: none;
-    border-bottom: solid;
-    border-width: 1px;
     position: fixed;
     background: white;
+    box-shadow: 0 2px 2px -2px rgba(0,0,0,.2);
 }
 
 .navigation li {
@@ -67,14 +66,14 @@ hr {
     float: left;
     display: block;
     color: #283044;
-    padding: 8px 16px;
+    padding: 15px 0px 15px 30px;
 }
 
 .navigation li a {
     float: right;
     display: block;
     color: #283044;
-    padding: 8px 16px;
+    padding: 15px 16px;
     text-decoration: none;
 
 }
@@ -87,29 +86,54 @@ hr {
     color: gray;
 }
 
-.title {
-    padding-top: 100px;
-    padding-bottom: 40px;
+.home {
+    /*min-height: 500px;*/
     text-align: center;
+    list-style-type: none;
+    display : flex;
+    align-items : center;
+    justify-content: center;
+    width: 100vw;
 }
 
 .me img {
-    width: 300px;
+    margin-top: 20px;
+    width: 250px;
     border-radius: 400px;
 }
 
 .name {
-    padding-top: 20px;
-    font-size: 80px;
+    padding-top: 25px;
+    font-size: 72px;
 }
 
 .name span {
     opacity: 0.6;
 }
 
+.home-caption {
+    padding: 10px;
+}
+
+.interests {
+    margin: 10px;
+}
+
+.interests li {
+    display: inline;
+    white-space: nowrap;
+    line-height: 40px;
+}
+
+.interests span {
+    background: rgba(1, 1, 1, 0.08);
+    padding: 5px 8px 5px 8px;
+    border-radius: 5px;
+    margin-left: 3px;
+}
+
 .contacts {
-    list-style-type: none;
-    padding-top: 20px;
+    margin-top: 60px;
 }
 
 .contacts li {
@@ -122,20 +146,46 @@ hr {
     opacity: 0.3;
 }
 
-.desc {
-    padding: 20px;
+.content-left {
+    height: 100%;
+    border-left-style: solid;
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-width: 15px;
+    width: 10px;
+    display: table-cell;
+}
+
+.content-right {
+    height: 100%;
+    border-right-style: solid;
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-width: 15px;
+    width: 10px;
+    display: table-cell;
+}
+
+.center {
+    display: table;
+    column-count: 3;
+    justify-content: center;
+    max-width: 830px;
+    min-width: 500px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 90px;
+    padding-top: 70px;
 }
 
 .content {
-    padding: 10px 50px 10px 50px;
-    width: 70%;
-    /*background: #EBF5EE;*/
-    border-left-style: solid;
+    padding: 70px 55px 70px 55px;
+    width: auto;
+    /*border-left-style: solid;
     border-right-style: solid;
-    border-width: 15px;
-    max-width: 670px;
-    margin-top: 70px;
-    margin-bottom: 70px;
+    border-width: 15px;*/
+    display: table-cell;
 }
 
 .content i {
@@ -144,14 +194,15 @@ hr {
     opacity: 0.6;
 }
 
-.content-desc {
-    padding: 0;
-}
-
-.content-subdesc {
+.content-title {
     font-size: 35px;
     padding: 15px;
     padding-left: 0px;
+}
+
+.content-caption {
+    padding-top: 15px;
+    padding-bottom: 25px;
 }
 
 .content-details {
@@ -174,12 +225,6 @@ hr {
     float: left;
     padding-left: 20px;
     padding-top: 5px;
-}
-
-
-.center {
-    display: flex;
-    justify-content: center;
 }
 
 .project {
