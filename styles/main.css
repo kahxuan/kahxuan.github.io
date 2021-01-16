@@ -94,3 +94,32 @@ h1 {
 .col-project {
     min-width: 250px;
 }
+
+#top {
+    min-width: 500px;
+}
+
+
+.tab-pane.fade {
+  transition: all 0.2s;
+  transform: translateY(1rem);
+}
+
+.tab-pane.fade.show {
+  transform: translateY(0rem);
+}
+
+.tab-content .tab-pane h3 {
+    opacity: 0;
+    -moz-transform: translate(-10px, -10px) rotate(30deg);
+    -ms-transform: translate(-10px, -10px) rotate(30deg);
+    -o-transform: translate(-10px, -10px) rotate(30deg);
+    -webkit-transform: translate(-10px, -10px) rotate(30deg);
+    transform: translate(-10px, -10px) rotate(30deg);
+    transition: all .5s ease-in-out;
+  }
+  
+  .tab-content .active h3 {
+    opacity: 1;
+    transform: translate(0);
+  }
