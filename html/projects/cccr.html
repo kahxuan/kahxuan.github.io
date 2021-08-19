@@ -1,0 +1,778 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.gstatic.com"> 
+        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+        <link rel="stylesheet" href="./../../styles/main.css">
+        <link rel="stylesheet" href="./../../styles/page.css">
+        <link rel="stylesheet" href="./../../styles/project.css">
+        <title>Chinese Calligraphy Character Recognition</title>
+        <link rel="icon" href="./../../images/logo.ico" 
+        type="image/x-icon"> 
+    </head>
+
+    <body>
+
+      <!-- header -->
+      <div class="container p-3">
+        <div class="home-text grey font-weight-bold p-1 pl-4"><a href="./../projects.html" class="grey pl-1 pr-1 button-red">KX</a></div>
+      </div>
+      <hr style="margin: -15px;"/>
+      
+
+      <div class="container pl-lg-5 pr-lg-5"><div class="pl-lg-5 pr-lg-5">
+
+      <p><h1>Chinese Character Calligraphy Recognition with Intra-class Variant Clustering</h1></p>
+
+      <div class="mb-5">
+        <div class="details-inline">
+          <div class="float-left">
+            <img draggable="false" class="rounded-circle my-img mr-2 mb-1" src="./../../images/me-cropped.jpg" draggable="false">
+            <span class="mr-2 red">Kah Xuan</span>
+            <span class="mr-2">∙</span>
+            <span>Aug 19, 2021</span>
+          </div>
+          <div class="float-right mt-1">
+            <a target="_blank" href="https://github.com/kahxuan/chinese-calligraphy-recognition"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+          </div>
+          <br/>
+        </div>
+      </div>
+
+      <p>The goal of this project is to recognise the 100 most commonly used chinese characters, written in calligraphy in the semi-cursive script. As compared to handwritten chinese characters, chinese calligraphy characters are harder to recognise, even for trained experts because they can be written in a less restrictive way to express the author’s personality and emotions.</p>
+
+      <div class="card" id="toc-container">
+        <div class="card-body pl-4 pr-4 pt-3 pb-2">
+          <p id="toc-title">Table of Contents</p>
+          <ol>
+            <li><a href="#background">Background</a></li>
+            <li><a href="#possible-approaches">Possible Approaches</a></li>
+            <li>
+              <a href="#methodology">Methodology</a>
+              <ol type="i">
+                <li><a href="#dataset">Dataset</a></li>
+                <li><a href="#image-preprocessing">Image preprocessing</a></li>
+                <li><a href="#data-preparation">Data preparation</a></li>
+                <li><a href="#model">Model</a></li>
+              </ol>
+            </li>
+            <li><a href="#result">Result and Discussion</a></li>
+            <li><a href="#conclusion">Conclusion and Future Work</a></li>
+          </ol>
+        </div>
+      </div>
+
+      <p><h2 id="background">Background</h2></p>
+
+      <p><h3>Chinese Script</h3></p>
+
+      <p>Chinese script consists of around 70,000 characters. The first 3775 most frequently used characters covers 99.65% of the usage, so a lot research related to chinese character recognition only consider the 3775 characters. In this project, I will only target the 100 most commonly used characters as calligraphy data of rare characters are scarce.</p>
+
+      <p>Each character is made of “sub-characters”, also known as radicals.</p>
+
+      <div class="image-row row justify-content-center text-center">
+        <div class="col-8 col-sm-7 col-md-7 col-lg-6 col-xl-5">
+          <div class="row justify-content-center text-center">
+            <div class="col-4 pr-3 pl-3 pr-xl-4 pl-xl-4">
+              <img draggable="false" src="./images/cccr/radical_1.png" class="img-fluid"/>
+            </div>
+            <div class="col-4 pr-3 pl-3 pr-xl-4 pl-xl-4">
+              <img draggable="false" src="./images/cccr/radical_2.png" class="img-fluid">
+            </div>
+            <div class="col-4 pr-3 pl-3 pr-xl-4 pl-xl-4">
+              <img draggable="false" src="./images/cccr/radical_3.png"  class="img-fluid"/>
+            </div>
+          </div>
+        </div>
+        <div class="image-caption col-12">Radicals</div>
+      </div>
+
+      <p>Chinese calligraphy can be categorised into 5 styles, namely seal, clerical, regular, semi-cursive and cursive. They are different in terms of their stroke properties, local structure, or even global structure. Hence, it is challenging to build one classifier to recognise characters of all styles.</p>
+
+      <div class="image-row row justify-content-center text-center">
+        <div class="col-12 col-sm-11 col-md-10 col-lg-9 col-xl-8">
+          <div class="row justify-content-center text-center">
+            <div class="col-2 pr-2 pl-2">
+              <img draggable="false" src="./images/cccr/script_seal.png" class="img-fluid"/>
+              <p class="col image-subcaption">Seal</p>
+            </div>
+            <div class="col-2 pr-2 pl-2">
+              <img draggable="false" src="./images/cccr/script_clerical.png" class="img-fluid"/>
+              <p class="col image-subcaption">Clerical</p>
+            </div>
+            <div class="col-2 pr-2 pl-2">
+              <img draggable="false" src="./images/cccr/script_regular.png" class="img-fluid"/>
+              <p class="col image-subcaption">Regular</p>
+            </div>
+            <div class="col-2 pr-2 pl-2">
+              <img draggable="false" src="./images/cccr/script_semicursive.png" class="img-fluid"/>
+              <p class="col image-subcaption">Semi-cursive</p>
+            </div>
+            <div class="col-2 pr-2 pl-2">
+              <img draggable="false" src="./images/cccr/script_cursive.png" class="img-fluid"/>
+              <p class="col image-subcaption">Cursive</p>
+            </div>
+          </div>
+        </div>
+        <div class="image-caption col-12">5 major styles in chinese calligraphy</div>
+      </div>
+
+      <p><h3>Challenges</h3></p>
+
+      <p>Intrinsic similarities among characters make it hard to differentiate between them.</p>
+
+      <p>A character also can have more than one variations. Some of the variants have totally different structure. This is because chinese calligrapher uses simplified chinese and traditional chinese characters interchangeable, and also because of the less restrictive nature of the semi-cursive script.</p>
+
+      <div class="image-row row justify-content-center text-center mr-1">
+        <div class="col-7 col-md-5 col-xl-4">
+
+          <div class="row justify-content-center text-center" >
+            <div class="col-3 pr-2 pl-2">
+              <img draggable="false" src="./images/cccr/similar_1.png" class="img-fluid"/>
+            </div>
+            <div class="col-3 pr-2 pl-2">
+              <img draggable="false" src="./images/cccr/similar_2.png" class="img-fluid"/>
+            </div>
+          </div>
+          <div class="image-caption col-12">Similar characters - 大, 太</div>
+        </div>
+        
+        <div class="col-7 col-md-5 col-xl-4">
+          <div class="row justify-content-center text-center">
+            <div class="col-3 pr-2 pl-2">
+              <img draggable="false" src="./images/cccr/variants_1.png" class="img-fluid"/>
+            </div>
+            <div class="col-3 pr-2 pl-2">
+              <img draggable="false" src="./images/cccr/variants_2.png" class="img-fluid"/>
+            </div>
+            <div class="col-3 pr-2 pl-2">
+              <img draggable="false" src="./images/cccr/variants_3.png" class="img-fluid"/>
+            </div>
+            <div class="col-3 pr-2 pl-2">
+              <img draggable="false" src="./images/cccr/variants_4.png" class="img-fluid"/>
+            </div>
+          </div>
+          <div class="image-caption col-12">Variations of character 个</div>
+        </div>
+      </div>
+
+      <p><h2 id="possible-approaches">Possible Approaches</h2></p>
+
+      <p><h3>Two-Step Approach</h3></p>
+
+      <p>In recent years, great success has been achieved in the area of handwritten chinese character recognition (HCCR). Since the main difference between these two types of characters are the stroke properties, one approach is to break the problem down into two steps - first extract the skeleton of the character, then treat it as a HCCR problem. However, skeletonisation requires the character image to have clear and well-separated strokes, so the skeleton information might not be able to be accurately extracted in some cases. Besides, the stroke placement between handwritten and calligraphy characters might differ as calligraphy characters usually adhere more closely to a certain aesthetic standard.</p>
+
+      <div class="image-row row justify-content-center text-center">
+        <div class="col-9 col-md-7 col-lg-6 col-xl-5">
+          <div class="row justify-content-center text-center">
+            <div class="col-3">
+              <div class="row"><div class="col"><img draggable="false" src="./images/cccr/two_step_1.png" class="img-fluid"></div></div>
+              <p class="image-subcaption">Calligraphy input</p>
+            </div>
+            <div class="col-1">
+              <div class="container d-flex h-100">
+                <div class="row justify-content-center align-self-center">
+                  <i class="fas fa-angle-right fa-lg red pb-5" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="row"><div class="col"><img draggable="false" src="./images/cccr/two_step_2.png" class="img-fluid"></div></div>
+              <p class="image-subcaption">Skeletonised character</p>
+            </div>
+            <div class="col-1">
+              <div class="container d-flex h-100">
+                <div class="row justify-content-center align-self-center">
+                  <i class="fas fa-angle-right fa-lg red pb-5" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-3 align-self-end">
+              <div class="row justify-content-center text-center mb-2 mb-sm-3">
+                <span style="font-size: 26pt;">但</span>
+              </div>
+              <p class="image-subcaption">HCCR output</p>
+            </div>
+          </div>
+        </div>
+        <div class="image-caption col-12">Two-Step Approach</div>
+      </div>
+
+      <p><h3>HCCR Approaches</h3></p>
+
+      <p>Since our problem is similar to HCCR, we can also consider approaches that have been successfully applied in HCCR. These approaches can be categorised into character-based, radical-based and stroke-based.</p>
+
+      <p>In character-based approaches, each character is treated as one class. State-of-the-art results have been achieved using convolutional neural networks (CNNs) given sufficient data. However, they cannot handle characters that are not in the training data, this is known as the zero-shot problem.</p>
+
+      <p>Next, both radical-based and stroke-based methods decompose the character into smaller units. They can be treated as an image captioning problem, and can address the zero-shot problem, which are very useful because of the large chinese character set.</p>
+
+      <p>All three types of methods employ a model with an encoder-decoder architecture, where the encoder will extract the image features. In character-based approaches, the decoder can directly decode the feature to it’s class; In radical-based and stroke-based approaches, the decoder is more complex as it has to decode the features into a sequence of radicals or strokes. Since there are limited data to train the model, I will be using a simpler model with a character-based approach in this project.</p>
+
+      <p>Traditional character-based approaches involve the extraction of hand-crafted features. This imposes limitations on the model performance due to the low-level feature representation.</p>
+
+      <p>General steps in traditional methods: -</p>
+      <ol>
+        <li>Hand-crafted feature extraction</li>
+        <li>Dimensionality reduction</li>
+        <li>Classifier (eg. SVM) training</li>
+      </ol>
+
+      <p>Recent work on character recognition mostly involves the use of CNNs as they are able to extract more complex features from images, thus having much better performance.</p>
+
+      <p><h2 id="methodology">Methodology</h2></p>
+
+      <p>I attempt to overcome the dataset limitations and address the intra-class variant issue by paying great attention on the data preparation steps. New training data will be synthesised while ensuring the representativeness in the dataset. This is done by carrying out clustering within each class to identify the variants first, then perform the train-valid-test-split and data augmentation based on the clustering results. Then, a CNN classifier is trained via transfer learning for character recognition.</p>
+
+      <p><h3 id="dataset">Dataset</h3></p>
+
+      <p>Since I couldn’t find any suitable open dataset for this project, I have scraped the data from an online chinese calligraphy dictionary (<a class="red" target="_blank" href="https://www.shufadict.com">www.shufadict.com</a>) under the semi-cursive script category. Each image have been segmented and labelled as a single character.</p>
+
+      <p>The final dataset contains 10035 images for 100 characters. Based on the histogram of class size, there is a class imbalance problem and will be addressed in the pre-modelling steps.</p>
+
+      <div class="row image-row justify-content-center text-center">
+        <div class="col-9 col-md-7 col-lg-6 col-xl-5">
+            <img class="img-fluid" draggable="false" src="./images/cccr/hist_img_count.png"/>
+            <div class="image-caption">Class size</div>  
+        </div>
+      </div>
+
+      <p><h3 id="image-preprocessing">Image preprocessing</h3><p>
+
+
+      <div class="image-row row justify-content-center text-center">
+        <div class="col-12 col-xl-10">
+          <div class="row justify-content-center text-center">
+            <div class="col-2 align-self-center">
+              <img draggable="false" src="./images/cccr/image_p1.png" class="img-fluid pl-0 pr-0 pl-md-3 pr-md-3 pl-lg-3 pr-lg-3"/>
+              <div class="image-subcaption" style="height: 48px;">Raw image</div>
+            </div>
+            <div style="width: 20px;">
+              <i class="fas fa-angle-right fa-lg red mt-3 mt-lg-4" aria-hidden="true"></i>
+            </div>
+            <div class="col-2 align-self-center">
+              <img draggable="false" src="./images/cccr/image_p2.png" class="img-fluid pl-0 pr-0 pl-md-3 pr-md-3 pl-lg-3 pr-lg-3"/>
+              <div class="image-subcaption" style="height: 48px;">Gaussian blur</div>
+            </div>
+            <div style="width: 20px;">
+              <i class="fas fa-angle-right fa-lg red mt-3 mt-lg-4" aria-hidden="true"></i>
+            </div>
+            <div class="col-2 align-self-center">
+              <img draggable="false" src="./images/cccr/image_p3.png" class="img-fluid pl-0 pr-0 pl-md-3 pr-md-3 pl-lg-3 pr-lg-3"/>
+              <div class="image-subcaption" style="height: 48px;">K-means segmentation</div>
+            </div>
+            <div style="width: 20px;">
+              <i class="fas fa-angle-right fa-lg red mt-3 mt-lg-4" aria-hidden="true"></i>
+            </div>
+            <div class="col-2 align-self-center">
+              <img draggable="false" src="./images/cccr/image_p4.png" class="img-fluid pl-0 pr-0 pl-md-3 pr-md-3 pl-lg-3 pr-lg-3"/>
+              <div class="image-subcaption" style="height: 48px;">Size normalisation</div>
+            </div>
+
+          </div>
+        </div>
+        <div class="image-caption col-12">Operations applied for initial processing</div>
+      </div>
+
+      <p>Some images with poor image quality have to be enhanced manually to fix the segmentation failures.</p>
+
+      <p><h3 id="data-preparation">Data preparation</h3><p>
+
+      <p><h4>Intra-class Variant Clustering</h4></p>
+
+      <p>Variants can be loosely defined as characters that belong to the same class but have different global structure.</p>
+
+      <p>After skimming through the dataset, I found out that there is an intra-class imbalance issue. For example, the character “一” has two variants, one of them make up around 81% of the data in the class. The dataset has to be handled with extra care to ensure each of the train validation and test set covers all the variations. Hence, I first cluster images from the same class with the same spatial layout together to identify the variants.</p>
+
+      <p class="caption">Feature selection<p>
+
+      <p>Clustering requires features to be extracted from the images. A few image descriptors that are widely used in computer vision tasks are considered: -</p>
+      <ul>
+        <li>Histogram of gradient (HoG)</li>
+        <li>Perceptual hashing (pHash)</li>
+        <li><a target="_blank" href="http://people.csail.mit.edu/torralba/code/spatialenvelope/" class="red">GIST</a></li>
+      </ul>
+
+      <p>We would want to select the feature that can minimise distance between similar images and maximize distance between variants in order to obtained well-separated clusters. To compare the descriptors, L2 distance between a few hand-picked clusters (a group of 4 similar images) are estimated based on the mean feature extracted using different descriptors.</p>
+
+      <p>Steps for distance estimation: -</p>
+      <ol>
+        <li>Manually group 4 similar images of the same character together</li>
+        <li>Compute feature vector for each image using the selected descriptor</li>
+        <li>Average the set of feature vectors for each cluster</li>
+        <li>Compute the L2 distance between the mean feature of two clusters</li>
+      </ol>
+
+      <div class="table-container">
+        <table class="table table-padding-y">
+          <thead class="thead-dark">
+            <tr class="text-right">
+              <th scope="col"></th>
+              <th scope="col"></th>
+              <th scope="col">HoG</th>
+              <th scope="col">pHash</th>
+              <th scope="col">GIST</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td scope="row" rowspan=3 class="text-center">于</td>
+              <td style="min-width: 220px;">
+                dist<sub>similar</sub> (
+                  <img draggable="false" src="./images/cccr/distance_est_a1.png"  style="height: 30px;"/>
+                  ,
+                  <img draggable="false" src="./images/cccr/distance_est_a2.png"  style="height: 30px;"/>
+                )
+              </td>
+              <td class="text-right">0.30</td>
+              <td class="text-right">303.03</td>
+              <td class="text-right">137.75</td>
+            </tr>
+            <tr>
+              
+              <td>
+                dist<sub>variant</sub> (
+                  <img draggable="false" src="./images/cccr/distance_est_a1.png"  style="height: 30px;"/>
+                  ,
+                  <img draggable="false" src="./images/cccr/distance_est_a3.png"  style="height: 30px;"/>
+                )
+              </td>
+              <td class="text-right">0.51</td>
+              <td class="text-right">392.81</td>
+              <td class="text-right">167.25</td>
+            </tr>
+            <tr class="table-active">
+              <td>Score</td>
+              <td class="text-right">1.71</td>
+              <td class="text-right">1.30</td>
+              <td class="text-right">1.21</td>
+            </tr>
+            <tr>
+              <td scope="row" rowspan=3 class="text-center">时</td>
+              <td>
+                dist<sub>similar</sub> (
+                  <img draggable="false" src="./images/cccr/distance_est_b1.png"  style="height: 30px;"/>
+                  ,
+                  <img draggable="false" src="./images/cccr/distance_est_b2.png"  style="height: 30px;"/>
+                )
+              </td>
+              <td class="text-right">0.36</td>
+              <td class="text-right">330.73</td>
+              <td class="text-right">180.75</td>
+            </tr>
+            <tr>
+              
+              <td>
+                dist<sub>variant</sub> (
+                  <img draggable="false" src="./images/cccr/distance_est_b1.png"  style="height: 30px;"/>
+                  ,
+                  <img draggable="false" src="./images/cccr/distance_est_b3.png"  style="height: 30px;"/>
+                )
+              </td>
+              <td class="text-right">0.62</td>
+              <td class="text-right">444.32</td>
+              <td class="text-right">200.00</td>
+            </tr>
+            <tr class="table-active">
+              <td>Score</td>
+              <td class="text-right">1.72</td>
+              <td class="text-right">1.34</td>
+              <td class="text-right">1.11</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="table-caption">Distance estimated between clusters<br/>* Score = dist<sub>variant</sub> ÷ dist<sub>similar</sub></p>
+      </div>
+
+      <p>GIST gives the highest score for both characters, so GIST features will be extracted for the clustering task.</p>
+
+      <p class="caption">GIST feature<p>
+
+      <p>The GIST feature is extracted using a bank of 20 Gabor filters of different scale and orientation with the following steps: -</p>
+
+      <ol>
+        <li>Split image into 4x4 non-overlapping blocks</li>
+        <li>Convolve each block with one of the Gabor filters</li>
+        <li>Take the average activation output of each block</li>
+      </ol>
+
+      <p>The output values are combined together to form the feature vector. Each Gabor filter results in 16 features, so we have a final feature vector of dimension 16 x 20 = 320.</p>
+
+      <div class="image-row row  justify-content-center text-center">
+        <div class="col-6 col-md-5">
+          <div class="row justify-content-center text-center">
+            <div class="col col-xl-3 pr-3 pl-3">
+              <img draggable="false" src="./images/cccr/gabor_filter1.png"  class="img-fluid"/>
+            </div>
+            <div class="col col-xl-3 pr-3 pl-3">
+              <img draggable="false" src="./images/cccr/gabor_filter2.png" class="img-fluid"/>
+            </div>
+            <div class="col col-xl-3 pr-3 pl-3">
+              <img draggable="false" src="./images/cccr/gabor_filter3.png" class="img-fluid"/>
+            </div>
+          </div>
+        </div>
+        <div class="image-caption col-12">Examples of Gabor filter</div>
+      </div>
+
+      <p class="caption">Clustering<p>
+
+      <p>The data points are clustered using k-means with L2 distance as the distance metric.</p>
+
+      <p>Within each character class, I have run it with k=2 and k=3, the number that gives the highest silhouette score is chosen. If none of the silhouette scores don’t exceed a certain threshold, then the class will remain to have one cluster.</p>
+
+      In the splitted data, 21 classes are identified with 2 variants and only 1 class has 3 variants. The figure below indicates that there is an intraclass imbalance issue for some characters.
+
+      <div class="row image-row justify-content-center text-center">
+        <div class="col-9 col-md-7 col-lg-6 col-xl-5">
+            <img class="img-fluid" draggable="false" src="./images/cccr/parallel_coord1.png"/>
+            <div class="image-caption">Image count of each variant for each class</div>  
+        </div>
+      </div>
+
+      <div class="row image-row justify-content-center text-center">
+        <div class="col-6 col-md-5 col-lg-4">
+          <div class="row justify-content-center text-center">
+            <img class="img-fluid" draggable="false" src="./images/cccr/tsne1.png"/>
+            <span class="image-subcaption">Silhouette score = 0.3375, k = 3</span>
+          </div>
+        </div>
+        <div class="col-6 col-md-5 col-lg-4">
+          <div class="row justify-content-center text-center">
+            <img class="img-fluid" draggable="false" src="./images/cccr/tsne2.png"/>
+            <span class="image-subcaption">Silhouette score = 0.2648, k = 2</span>
+          </div>
+        </div>
+
+        <div class="image-caption">t-SNE visualisation of the clusters for character  "个" and "时"<br/>Images in the circled region belongs to the wrong cluster</div>        
+      </div>
+
+      <p>Since the purpose of variant clustering is to ensure each variant has roughly equal size, some minor errors are still acceptable at this stage.</p>
+
+      <p><h4>Train-Valid-Test-Split</h4></p>
+
+      <p>The dataset is split based on a ratio of roughly 6:2:2. For the classes that have more than one clusters, the data is sampled such that the number of data points for each variants in the validation and test set are balanced to ensure they cover all the variations.</p>
+
+      <p>New training data are synthesised through data augmentation. More samples are generated for the minority classes and minority variants to balance the data size.</p>
+
+      <div class="table-container">
+        <table class="table">
+          <thead class="thead-dark">
+            <tr class="text-center">
+              <th scope="col"></th>
+              <th scope="col" colspan=2>Number of data points</th>
+            </tr>
+          </thead>
+          <tbody class="text-center">
+            <tr>
+              <th scope="row">Dataset</th>
+              <th>Before augmentation</th>
+              <th>After augmentation</th>
+            </tr>
+            <tr>
+              <th scope="row">Train</th>
+              <td>8035</td>
+              <td>15856</td>
+            </tr>
+            <tr>
+              <th scope="row">Validation</th>
+              <td>2000</td>
+              <td>2000</td>
+            </tr>
+            <tr>
+              <th scope="row">Test</th>
+              <td>2000</td>
+              <td>2000</td>
+            </tr>
+            <tr class="table-active">
+              <th scope="row">Total</th>
+              <td>12035</td>
+              <td>19856</td>
+            </tr>
+
+          </tbody>
+        </table>
+
+        <p class="table-caption">Dataset size</p>
+      </div>
+
+      <div class="image-row row justify-content-center text-center">
+        <div class="col-12 col-md-10 col-lg-8 col-xl-7">
+          <div class="row justify-content-center text-center">
+            <div class="col-2 col-xs-3 self-align-center">
+              <div class="container d-flex h-100">
+              <div class="row justify-content-center align-self-center"><img draggable="false" src="./images/cccr/augmentation1.png" class="img-fluid"/></div></div>
+            </div>
+            <div class="col-1 self-align-center">
+              <div class="container d-flex h-100">
+                <div class="row justify-content-center align-self-center text-center">
+                  <i class="fas fa-angle-right fa-lg red" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="row"><div class="col"><img draggable="false" src="./images/cccr/augmentation2.png" class="img-fluid"/></div></div>
+            </div>
+            <div class="col-1">
+              <div class="container d-flex h-100">
+                <div class="row justify-content-center align-self-center text-center">
+                  <i class="fas fa-angle-right fa-lg red" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-2 col-xs-3 self-align-center">
+              <div class="container d-flex h-100">
+              <div class="row justify-content-center align-self-center"><img draggable="false" src="./images/cccr/augmentation3.png" class="img-fluid"/></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="image-caption col-12">Operations applied for data augmentation</div>
+      </div>
+
+      <p>This completes our data preparation step.</p>
+
+      <p><h3 id="model">Model</h4><p>
+
+      <p><h4>Model Architecture</h4><p>
+
+      <div class="row image-row justify-content-center text-center">
+        <div class="col-12 col-lg-9 col-xl-8">
+          
+            <img class="img-fluid" draggable="false" src="./images/cccr/model_architecture.png"/>
+            <div class="image-caption">Model architecture</div>  
+        </div>
+        
+      </div>
+
+      <p>I have selected EfficientNet with pre-trained weights without the classification layers as the base of my model. EfficientNet has managed to achieve good accuracy on image classification on ImageNet. The base model, EfficientNetB0, is used to get a lighter-weight network. </p>
+
+      <p>An average pooling layer is used to downsample the feature maps obtained from EfficientNet to reduce the parameters of the model.</p>
+
+      <p><h4>Model Optimisation</h4><p>
+
+      <p>As for the model optimisation, cross-entropy is used as the loss function. I have used mini-batch gradient descent with batch size of 16 and Adam optimizer. The batch size and optimizer are selected by doing a grid search.</p>
+
+      <p>I found out that an initial learning rate of 0.0005 works best, and it is reduced by a factor of 0.5 when the validation accuracy doesn’t improve for 2 epochs.</p>
+
+      <p><h2 id="result">Result and Discussion</h2></p>
+
+      <p>The model is able to achieve top-1 accuracy of 91.65% and top-3 accuracy of 97.5% on the test set.</p>
+
+      <p class="caption">Failure in variant detection<p>
+
+      <p>To investigate the reasons why the model failed to classify the images, I first looked into the worst performing class ("只"). I found out that the algorithm has failed to detect all variants. Since some of the minority variants did not get grouped into an independent cluster, they remain to have fewer data points after augmenting the data. Hence, the model failed to learn from the minority variants due to the lack of training samples.</p>
+
+      <div class="image-row row justify-content-center text-center">
+        <div class="col-xs-12 col-sm-11 col-md-10 col-lg-9 col-xl-8">
+          <div class="row justify-content-center">
+            <div class="col-2 mr-4">
+              <div class="row border border-secondary pt-3 pb-3">
+                <div class="col">
+                  <div>
+                    <img draggable="false" src="./images/cccr/undetected_var1.png"  class="img-fluid"/>
+                  </div>
+                </div>
+              </div>
+              <span class="image-subcaption">Cluster 1</span>
+            </div>
+            <div class="col-6">
+              <div class="row border border-secondary pt-3 pb-3">
+                <div class="col">
+                  <img draggable="false" src="./images/cccr/undetected_var2.png" class="img-fluid"/>
+                </div>
+                <div class="col">
+                  <img draggable="false" src="./images/cccr/undetected_var3.png" class="img-fluid"/>
+                </div>
+                <div class="col">
+                  <img draggable="false" src="./images/cccr/undetected_var4.png" class="img-fluid"/>
+                </div>
+              </div>
+              <span class="image-subcaption">Cluster 2</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 image-caption">Detected variants of character "只"</div>
+      </div>
+
+      <p class="caption">Similar characters<p>
+
+      <p>Some of the misclassified samples got predicted as another character with similar appearance.</p>
+
+      <div class="image-row row  justify-content-center text-center">
+        <div class="col-12 col-md-10 col-lg-9 col-xl-8">
+          <div class="row justify-content-center text-center">
+            <div class="col-4 col-md-3">
+              <div class="container d-flex h-100">
+                <div class="row justify-content-center align-self-center text-center">
+                  <p class="text-left" style="font-size: 12pt;">Misclassified samples</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-2">
+              <img draggable="false" src="./images/cccr/similar_true1.png"  class="img-fluid"/>
+            </div>
+            <div class="col-2">
+              <img draggable="false" src="./images/cccr/similar_true2.png"  class="img-fluid"/>
+            </div>
+            <div class="col-2">
+              <img draggable="false" src="./images/cccr/similar_true3.png"  class="img-fluid"/>
+            </div>
+            <div class="col-2">
+              <img draggable="false" src="./images/cccr/similar_true4.png"  class="img-fluid"/>
+            </div>
+
+            <div class="col-4 col-md-3">
+            </div>
+            <div class="col-2 mb-2">
+              <span class="image-subcaption">然</span>
+            </div>
+            <div class="col-2 mb-2">
+              <span class="image-subcaption">最</span>
+            </div>
+            <div class="col-2 mb-2">
+              <span class="image-subcaption">意</span>
+            </div>
+            <div class="col-2 mb-2">
+              <span class="image-subcaption">来</span>
+            </div>
+
+            <div class="col-4 col-md-3">
+              <div class="container d-flex h-100">
+                <div class="row justify-content-center align-self-center text-center">
+                  <p class="text-left" style="font-size: 12pt;">Samples from predicted class</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-2">
+              <img draggable="false" src="./images/cccr/similar_pred1.png"  class="img-fluid"/>
+            </div>
+            <div class="col-2">
+              <img draggable="false" src="./images/cccr/similar_pred2.png"  class="img-fluid"/>
+            </div>
+            <div class="col-2">
+              <img draggable="false" src="./images/cccr/similar_pred3.png"  class="img-fluid"/>
+            </div>
+            <div class="col-2">
+              <img draggable="false" src="./images/cccr/similar_pred4.png"  class="img-fluid"/>
+            </div>
+
+            <div class="col-4 col-md-3">
+            </div>
+            <div class="col-2">
+              <span class="image-subcaption">就</span>
+            </div>
+            <div class="col-2">
+              <span class="image-subcaption">家</span>
+            </div>
+            <div class="col-2">
+              <span class="image-subcaption">一</span>
+            </div>
+            <div class="col-2">
+              <span class="image-subcaption">成</span>
+            </div>
+          </div>
+        </div>
+        <div class="image-caption col-12">Similar characters</div>
+      </div>
+
+      These character pairs are confusing to the classifier, especially when there is limited data to learn from. Most of these cases still fall in the top-3 predictions.</p>
+
+      <p class="caption">Poor quality images<p>
+
+      <p>In some images, the strokes are unclear and are fused together. These poor quality images are harder to classify, and can disturb the training of the model. This can be potentially improved by paying more attention to the data preprocessing steps, such as applying stronger erosion in the data augmentation step to train the model to classify characters under poor conditions</p>
+
+      <div class="image-row row  justify-content-center text-center">
+        <div class="col-9 col-md-7 col-lg-7 col-xl-6">
+          <div class="row justify-content-center text-center">
+            <div class="col-3 pl-lg-3 pr-lg-3 pl-xl-4 pr-xl-4">
+              <img draggable="false" src="./images/cccr/poor_raw1.png"  class="img-fluid"/>
+            </div>
+            <div class="col-3 pl-lg-3 pr-lg-3 pl-xl-4 pr-xl-4">
+              <img draggable="false" src="./images/cccr/poor_raw2.png" class="img-fluid"/>
+            </div>
+            <div class="col-3 pl-lg-3 pr-lg-3 pl-xl-4 pr-xl-4">
+              <img draggable="false" src="./images/cccr/poor_raw3.png" class="img-fluid"/>
+            </div>
+            <div class="col-3 pl-lg-3 pr-lg-3 pl-xl-4 pr-xl-4">
+              <img draggable="false" src="./images/cccr/poor_raw4.png" class="img-fluid"/>
+            </div>
+            <div class="col-3 pl-lg-3 pr-lg-3 pl-xl-4 pr-xl-4">
+              <img draggable="false" src="./images/cccr/poor_clean1.png"  class="img-fluid"/>
+            </div>
+            <div class="col-3 pl-lg-3 pr-lg-3 pl-xl-4 pr-xl-4">
+              <img draggable="false" src="./images/cccr/poor_clean2.png" class="img-fluid"/>
+            </div>
+            <div class="col-3 pl-lg-3 pr-lg-3 pl-xl-4 pr-xl-4">
+              <img draggable="false" src="./images/cccr/poor_clean3.png" class="img-fluid"/>
+            </div>
+            <div class="col-3 pl-lg-3 pr-lg-3 pl-xl-4 pr-xl-4">
+              <img draggable="false" src="./images/cccr/poor_clean4.png" class="img-fluid"/>
+            </div>
+          </div>
+        </div>
+        <div class="image-caption col-12">Poor quality images</div>
+      </div>
+
+
+      <p><h2 id="conclusion">Conclusion and Future Work</h2></p>
+
+      <p>In this post, I have explained the steps to perform k-means clustering with GIST feature to improve the representativeness in our training, validation and test set. Then, I have used transfer learning with EfficientNet to train a classifier to recognise the chinese challigraphy characters.</p>
+
+      <p>Based on the analysis of the results, most problems encountered with the model can be improved by having a larger dataset, so the future work includes collecting more data to expand the dataset.</p>
+
+      <p>Besides that, we could also experiment with few-shot learning to train classifiers that can recognise more characters. Since handwritten chinese characters are easier to collect, we can use them as our support set to boost the model performance.</p>
+
+      <p>Thanks for reading!</p>
+
+
+
+      <div class="mt-5 pt-5 mb-5">
+        <div class="details-inline">
+          <div class="float-left">
+            <i class="fas fa-comment-dots fa-lg disabled-item mr-2" aria-hidden="true"></i>
+            <i class="fas fa-angle-right fa disabled-item mr-3" aria-hidden="true"></i>
+            <a target="_blank" class="mr-4" href="mailto:xuanlim77@gmail.com">
+                <i class="fas fa-envelope fa-lg" aria-hidden="true"></i>
+            </a>
+            <a target="_blank" href="https://www.linkedin.com/in/kahxuan/">
+                <i class="fab fa-linkedin fa-lg" aria-hidden="true"></i>
+            </a>
+          </div>
+          <div class="float-right">
+            <a target="_blank" href="https://github.com/kahxuan/chinese-calligraphy-recognition">
+              <i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+          </div>
+          <br/>
+        </div>
+        <div>
+          <ul class="list-inline" id="tags">
+            <li class="list-inline-item">image processing</li>
+            <li class="list-inline-item">feature extraction</li>
+            <li class="list-inline-item">character recognition</li>
+            <li class="list-inline-item">efficientnet</li>
+          </ul>
+        </div>
+      </div>
+
+      
+
+      </div></div>
+
+      <hr/>
+      <div class="mt-4">
+        <div class="pt-2 pb-4 mr-lg-5 float-right">
+          <span class="mr-5"><a href="./../../index.html">About</a></span>
+          <span class="mr-5 ml-3"><a href="./../projects.html">Projects</a></span>
+        </div>
+      </div>
+
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    </body>
+</html>
