@@ -1,0 +1,46 @@
+.tab-pane li{
+    margin: 10px 0;
+}
+
+.tab-pane .card-title {
+    font-size: 27px;
+    font-weight: bold;
+}
+
+.tab-pane .card-subtitle .left {
+    color: #D63D2E;
+}
+
+.tab-pane .card-subtitle .float-right {
+    color: #606060;
+}
+
+.home-text {
+	font-size: 28px;
+	font-weight: bolder;
+	margin-bottom: 4px;
+	margin-top: -5px;
+}
+
+.button-red:hover {
+    text-decoration: none;
+    background-color: #D63D2E;
+    color: white;
+}
+
+.list-url li:after {
+    content:'';
+}
+
+.list-url a {
+	font-size: 18px;
+	color: #D63D2E;
+	padding-left: 3px;
+    padding-right: 3px;
+}
+
+.list-url a:hover {
+    text-decoration: none;
+    background-color: #D63D2E;
+    color: white;
+}

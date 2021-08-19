@@ -12,60 +12,42 @@ h1 {
     font-weight: bold;
 }
 
-.c4-izmir {
-    --primary-color: #D63D2E;
-    --secondary-color: #606060;
-    --border-margin: 10px;
-    --border-width: 1px;
-    --overlay-opacity: .5;
-    --padding: 0.5em;
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #D63D2E;
+}
+
+i {
+    color: black;
+}
+
+i:hover {
+    color: #D63D2E;
 }
 
 .red {
     color: #D63D2E;
-    font-weight: normal;
+}
+
+.grey {
+    color: #606060;
+}
+
+.disabled-item {
+    color: #606060;   
+}
+
+.disabled-item:hover {
+    color: #606060;   
 }
 
 .card {
     border: none;
-}
-
-#container-project img{
-    width: 100%;
-}
-
-#row-contact img {
-    height: 23px;
-}
-
-.tab-pane li{
-    margin: 10px 0;
-}
-
-.tab-pane .card-title {
-    font-size: 27px;
-    font-weight: bold;
-}
-
-.tab-pane .card-subtitle .left {
-    color: #D63D2E;
-}
-
-.tab-pane .card-subtitle .float-right {
-    color: #606060;
-}
-
-.card-header {
-    border-top: 1px solid #606060;
-    border-bottom: 1px solid #606060;
-    height: 45px;
-}
-
-
-.nav .active {
-    color: #606060;
-    font-size: 21px;
-    font-weight: bold;
 }
 
 .nav-link {
@@ -75,6 +57,18 @@ h1 {
 
 .nav-link:hover {
     color: #D63D2E;
+}
+
+.nav .active {
+    color: #606060;
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.card-header {
+    border-top: 1px solid #606060;
+    border-bottom: 1px solid #606060;
+    height: 45px;
 }
 
 .list-inline li:after {
@@ -91,35 +85,14 @@ h1 {
 }
 
 
-.col-project {
-    min-width: 250px;
+.list-group-item {
+    border-radius: 2px;
 }
 
-#top {
-    min-width: 500px;
+.list-group-item:first-child {
+    border-radius: 2px;
 }
 
-
-.tab-pane.fade {
-  transition: all 0.2s;
-  transform: translateY(1rem);
+.list-group-item:last-child {
+    border-radius: 2px;
 }
-
-.tab-pane.fade.show {
-  transform: translateY(0rem);
-}
-
-.tab-content .tab-pane h3 {
-    opacity: 0;
-    -moz-transform: translate(-10px, -10px) rotate(30deg);
-    -ms-transform: translate(-10px, -10px) rotate(30deg);
-    -o-transform: translate(-10px, -10px) rotate(30deg);
-    -webkit-transform: translate(-10px, -10px) rotate(30deg);
-    transform: translate(-10px, -10px) rotate(30deg);
-    transition: all .5s ease-in-out;
-  }
-  
-  .tab-content .active h3 {
-    opacity: 1;
-    transform: translate(0);
-  }

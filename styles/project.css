@@ -1,0 +1,160 @@
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 14pt;
+    color: black;
+}
+
+p {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+h1 {
+	padding-top: 60px;
+	padding-bottom: 10px;
+	font-size: 34pt;
+}
+
+h2 {
+	padding-top: 35px;
+	padding-bottom: 5px;
+	font-weight: bolder;
+	font-size: 23pt;
+}
+
+h3 {
+	padding-top: 20px;
+	padding-bottom: 4px;
+	font-size: 19pt;
+	font-weight: bold;
+	color: #606060;
+}
+
+h4 {
+	padding-top: 14px;
+	padding-bottom: 3px;
+	font-size: 15pt;
+	font-weight: bold;
+}
+
+table {
+	line-height: 10px;
+	font-size: 13pt;
+}
+
+table td {
+	vertical-align:middle !important;
+}
+
+table th {
+	vertical-align:middle !important;
+}
+
+
+.caption {
+	font-size: 12pt;
+	font-weight: 900;
+	text-transform: uppercase;
+	letter-spacing: 1.7px;
+	padding-top: 13px;
+	padding-bottom: 3px;
+	color: #D63D2E;
+}
+
+.my-img {
+	height: 32px;
+}
+
+.details-inline {
+	margin: 18px;
+	margin-left: 8px;
+	margin-right: 8px;
+	font-size: 13pt;
+}
+
+#toc-container {
+	border: 1px solid rgba(0,0,0,.125);
+	font-size: 13pt;
+	line-height: 24px;
+	margin-top: 25px;
+	margin-bottom: 10px;
+}
+
+#toc-title {
+	margin-bottom: 6px;
+	text-transform: uppercase;
+	font-size: 11pt;
+	letter-spacing: 1px;
+	font-weight: bold;
+}
+
+#toc-container a:hover {
+   	font-weight: 500;
+}
+
+#tags li {
+	font-size: 13pt;
+	background-color: #cececeff;
+	color: white;
+	padding-left: 7px;
+	padding-right: 7px;
+	margin-bottom: 5px;
+	border-radius: 3px;
+}
+
+
+.list-inline li:after {
+    content:''; 
+    margin-left: 0px;
+}
+
+.list-inline li:first-child {
+    color: white;
+}
+
+
+.image-row {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.image-subcaption {
+	font-size: 11pt;
+	font-style: italic;
+	line-height:20px;
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: -5px;
+}
+
+.image-caption {
+	font-size: 11pt;
+	text-transform: uppercase;
+	margin-top: 15px;
+	letter-spacing: 1px;
+	margin-bottom: 10px;
+}
+
+
+.table-caption {
+	font-size: 11pt;
+	text-transform: uppercase;
+	text-align: center;
+	letter-spacing: 1px;
+}
+
+.table-container {
+	margin-top: 35px;
+	margin-bottom: 35px;
+	overflow: scroll;
+}
+
+.table-padding-y th {
+	padding-left: 30px !important;
+	padding-right: 30px !important;
+}
+
+.table-padding-y td {
+	padding-left: 30px !important;
+	padding-right: 30px !important;
+}

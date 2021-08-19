@@ -5,34 +5,37 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="preconnect" href="https://fonts.gstatic.com"> 
-        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="./styles/izmir.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">    
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
         <link rel="stylesheet" href="./styles/main.css">
+        <link rel="stylesheet" href="./styles/index.css">
         <title>Kah Xuan Lim</title>
-        <link rel="icon" href="images/logo.ico" 
+        <link rel="icon" href="./images/logo.ico" 
         type="image/x-icon"> 
     </head>
     <body>
         <div class="container p-5" id="top">
             <div class="card text-center px-5">
-                <div class="card-body px-3 mb-5">
-                    <img class="rounded-circle col-md-4 my-3" src="images/me.jpg">
+                <div class="card-body px-3 mb-4">
+                    <img class="rounded-circle col-md-4 my-3" src="images/me.jpg" draggable="false">
                     <h1 class="card-title my-2">Kah Xuan <span class="red">Lim</span></h1>
-                    <span class="card-text">Final year computer science student, getting things done.</span>
+                    <span class="card-text">Computer science graduate, getting things done.</span>
                     <ul class="list-inline mt-2">
                         <li class="list-inline-item">Interests</li>
                         <li class="list-inline-item">Data science</li>
                         <li class="list-inline-item">Business process automation</li>
                     </ul>
                     
-                    <div class="row justify-content-around col-md-5 mx-auto mt-4" id=row-contact">
+                    <div class="row justify-content-around col-md-5 mx-auto mt-4" id="row-contact">
                         <a target="_blank" class="card-text" href="mailto:xuanlim77@gmail.com">
-                            <img src="images/icon-gmail.svg">
+                            <i class="fas fa-envelope fa-lg" aria-hidden="true"></i>
                         </a>
-                        <a target="_blank" class="card-text" href="https://www.linkedin.com/in/kahxuan/"><img src="images/icon-in.svg"></a>
-                        <a target="_blank" class="card-text" href="https://www.facebook.com/kahxuan77"><img src="images/icon-fb.svg"></a>
-                        <a target="_blank" class="card-text" href="https://www.instagram.com/k_xuanlim"><img src="images/icon-insta.svg"></a>
-                        <a target="_blank" class="card-text" href="https://github.com/kahxuan"><img src="images/icon-github.svg"></a>
+                        <a target="_blank" class="card-text" href="https://www.linkedin.com/in/kahxuan/">
+                            <i class="fab fa-linkedin fa-lg" aria-hidden="true"></i>
+                        </a>
+                        <a target="_blank" class="card-text" href="https://github.com/kahxuan">
+                            <i class="fab fa-github fa-lg" aria-hidden="true"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -41,194 +44,25 @@
                 <div class="card-header bg-transparent rounded-0">
                     <ul class="nav card-header-tabs justify-content-around" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link" href="#experience" role="tab" aria-controls="experience" aria-selected="true">Experience</a>
+                            <a class="nav-link" href="./html/experience.html" role="tab" aria-controls="experience" aria-selected="false">Experience</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link"  href="#education" role="tab" aria-controls="education" aria-selected="false">Education</a>
+                            <a class="nav-link"  href="./html/education.html" role="tab" aria-controls="education" aria-selected="false">Education</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link"  href="#projects" role="tab" aria-controls="projects" aria-selected="false">Projects</a>
+                            <a class="nav-link"  href="./html/projects.html" role="tab" aria-controls="projects" aria-selected="false">Projects</a>
                         </li>
                     </ul>
-              </div>
-              <div class="card-body">
-                
-                    <div class="tab-content mt-3">
-                        <div class="tab-pane" id="experience" role="tabpanel">
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <div class="card">
-                                        <div class="card-body">        
-                                            <p class="card-title">Omnilytics</p>
-                                            <div class="card-subtitle">
-                                                <span class="left">Data science intern</span>
-                                                <span class="float-right">December 2020</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="card">
-                                        <div class="card-body">        
-                                            <p class="card-title">Monash University Malaysia</p>
-                                            <div class="card-subtitle">
-                                                <span class="left">Research assistant</span>
-                                                <span class="float-right">October 2020</span>
-                                            </div>
+                  </div>
 
-                                            <ul class="card-text list-inline">
-                                              <li class="list-inline-item">Tools</li>
-                                              <li class="list-inline-item">Selenium</li>
-                                              <li class="list-inline-item">Puppeteer</li>
-                                            </ul>
-                                            
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="card">
-                                        <div class="card-body">        
-                                            <p class="card-title">BDO Kuala Lumpur</p>
-                                            <div class="card-subtitle">
-                                                <span class="left">Data analyst intern</span>
-                                                <span class="float-right">December 2019</span>
-                                            </div>
-
-                                            <ul class="list-inline">
-                                              <li class="list-inline-item">Tools</li>
-                                              <li class="list-inline-item">Python</li>
-                                              <li class="list-inline-item">PowerBI</li>
-                                              <li class="list-inline-item">Kivy</li>
-                                              <li class="list-inline-item">CaseWare Idea</li>
-                                              <li class="list-inline-item">Excel</li>
-                                            </ul>
-                                            
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="tab-pane" id="education" role="tabpanel" aria-labelledby="education-tab">  
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <div class="card">
-                                        <div class="card-body">        
-                                            <p class="card-title">Monash University Malaysia</p>
-                                            <div class="card-subtitle">
-                                                <span class="left">Bachelor of computer science</span>
-                                                <span class="float-right">- July 2021</span>
-                                            </div>
-
-                                            <ul class="card-text list-inline">
-                                              <li class="list-inline-item">Coursework</li>
-                                              <li class="list-inline-item">Advanced algorithms and data structures</li>
-                                              <li class="list-inline-item">Artificial intelligence</li>
-                                              <li class="list-inline-item">Modelling for data analysis</li>
-                                              <li class="list-inline-item">Computational linear algebra</li>
-                                              <li class="list-inline-item">Databases</li>
-                                              <li class="list-inline-item">Deep learning</li>
-                                              <li class="list-inline-item">Object oriented design</li>
-                                            </ul>
-                                            
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                        <div class="tab-pane" id="projects" role="tabpanel" aria-labelledby="projects-tab">  
-                            <ul class="list-group">
-                                 <li class="list-group-item">
-                                     <div class="card">
-                                         <div class="card-body">        
-                                             <p class="card-text">Here are the github links to projects that I have worked on, stay tuned for more!</p>
-
-                                             <div class="card-text container" id="container-project">
-
-                                                 <div class="row mx-auto">
-                                                    <div class="col-md-4 my-3 col-project">
-                                                        <figure class="c4-izmir c4-border-bottom-left c4-gradient-top c4-image-blur" href="https://github.com/kahxuan/asteroids">
-                                                                <img src="images/asteroids-demo.png" title='Asteroids'>
-                                                            <figcaption class="c4-layout-center-right">
-                                                                <div class="c4-reveal-left"><p>An implementation of the classic arcade game</p></div>
-                                                            </figcaption>
-                                                        </figure>
-                                                    </div>
-                                                    <div class="col-md-4 my-3 col-project">
-                                                        <figure class="c4-izmir c4-border-bottom-left c4-gradient-top c4-image-blur" href="https://github.com/kahxuan/course_planner">
-                                                                <img src="images/course-planner.png" title='Course Planner'>
-                                                            <figcaption class="c4-layout-center-right">
-                                                                <div class="c4-reveal-left"><p>Plan your semesters using this Flask app</p></div>
-                                                            </figcaption>
-                                                        </figure>
-                                                    </div>
-
-                                                    <div class="col-md-4 my-3 col-project">
-                                                        <figure class="c4-izmir c4-border-bottom-left c4-gradient-top c4-image-blur" href="https://github.com/kahxuan/neural-style-transfer">
-                                                                <img src="images/style-transfer.png" title='Style Transfer'>
-                                                            <figcaption class="c4-layout-center-right">
-                                                                <div class="c4-reveal-left"><p>An implementation of neural style transfer in TensorFlow</p></div>
-                                                            </figcaption>
-                                                        </figure>
-                                                    </div>
-
-                                                    <div class="col-md-4 my-3 col-project">
-                                                        <figure class="c4-izmir c4-border-bottom-left c4-gradient-top c4-image-blur" href="https://github.com/kahxuan/insta_network_analysis">
-                                                                <img src="images/insta-analysis.png" title='Insta Analysis'>
-                                                            <figcaption class="c4-layout-center-right">
-                                                                <div class="c4-reveal-left"><p>Cluster detection and visualisation of my Instagram network</p></div>
-                                                            </figcaption>
-                                                        </figure>
-                                                    </div>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </li>
-                             </ul>
-                        </div>
-
-                    </div>
-                </div>
             </div>
-            
+    
         </div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-        <script>
-    
-            $('.card-header-tabs a').on('click', function (e) {
-                e.preventDefault()
-                
-                if ($(this).hasClass('active')) {
-                    $("html, body").animate({ scrollTop: $('#top').position().top }, 10);
-                    setTimeout(()=>$('.tab-content').find($(this).attr('href')).removeClass('active'), 500);
-                    $(this).removeClass('active');
-                }
-                else {
-                    $(this).tab('show');
-                    $("html, body").animate({ scrollTop: $('#card-content').position().top }, 10);
-                }
-
-            });
-
-            $("figure").on('click', function (e) {
-                console.log(1);
-                var win = window.open($(this).attr('href'), '_blank');
-                if (win) {
-                    win.focus();
-                } 
-                else {
-                    alert('Please allow popups for this website');
-                }
-            });
-
-        </script>
     </body>
 </html>
