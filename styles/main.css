@@ -68,7 +68,6 @@ i:hover {
 .card-header {
     border-top: 1px solid #606060;
     border-bottom: 1px solid #606060;
-    height: 45px;
 }
 
 .list-inline li:after {
